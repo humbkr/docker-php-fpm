@@ -38,6 +38,9 @@ RUN apt-get install mysql-client -y
 RUN echo 'alias ll="ls -la"' >> ~/.bashrc
 RUN echo 'alias vi="vim"' >> ~/.bashrc
 
+# Cron
+RUN apt-get -y install cron
+
 # Commands with curl should be last
 
 # Composer
