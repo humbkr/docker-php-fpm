@@ -30,8 +30,7 @@ RUN docker-php-ext-install exif mbstring
 RUN apt-get install ssmtp mailutils -y
 ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
 
-# Drupal Drush
-RUN apt-get install drush -y
+# Mysql
 RUN apt-get install mysql-client -y
 
 # Create aliases
@@ -50,6 +49,12 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 RUN apt-get install -y nodejs
 RUN npm i -g gulp -y
+
+# Drupal Drush
+RUN php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > drush.phar && mv drush.phar /usr/local/bin/drush && chmod +x /usr/local/bin/drush
+
+# Clean apt-get cache
+RUN apt-get clean all -y && apt-get autoclean -y
 
 # Drupal Console
 #RUN curl https://drupalconsole.com/installer -L -o drupal.phar \
