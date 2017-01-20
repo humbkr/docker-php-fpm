@@ -40,7 +40,20 @@ RUN echo 'alias vi="vim"' >> ~/.bashrc
 # Cron
 RUN apt-get -y install cron
 
-# Commands with curl should be last
+# Set all default values for php settings that we sometime need to override.
+ENV PHP_DATE_TIMEZONE 'Europe/Paris'
+ENV PHP_MAX_EXECUTION_TIME '3000'
+ENV PHP_MAX_INPUT_TIME '60'
+ENV PHP_MAX_INPUT_VARS '3000'
+ENV PHP_MEMORY_LIMIT '1024M'
+ENV PHP_ERROR_REPORTING 'E_ALL & ~E_DEPRECATED & ~E_STRICT'
+ENV PHP_DISPLAY_ERRORS 'Off'
+ENV PHP_DISPLAY_STARTUP_ERRORS 'Off'
+ENV PHP_LOG_ERRORS 'On'
+ENV PHP_POST_MAX_SIZE '64M'
+ENV PHP_UPLOAD_MAX_FILESIZE '64M'
+ENV PHP_MAX_FILE_UPLOADS '20'
+ENV PHP_OPCACHE_ENABLE '0'
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
