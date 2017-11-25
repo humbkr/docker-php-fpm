@@ -26,7 +26,7 @@ RUN apt-get install -y libmcrypt-dev && docker-php-ext-install mcrypt
 RUN apt-get install -y libgd3 libfreetype6-dev libjpeg62-turbo-dev libpng12-dev && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && docker-php-ext-install gd
 RUN docker-php-ext-install exif mbstring
 
-# Mail stuff
+# Mail
 RUN apt-get install ssmtp mailutils -y
 ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
 
@@ -34,20 +34,20 @@ ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
 RUN apt-get install mysql-client -y
 
 # Create aliases
-RUN echo 'alias ll="ls -la"' >> ~/.bashrc
+RUN echo 'alias ll="ls -lah"' >> ~/.bashrc
 RUN echo 'alias vi="vim"' >> ~/.bashrc
 
 # Cron
 RUN apt-get -y install cron
 
-# Set all default values for php settings that we sometime need to override.
+# Set default values for php settings that we could need to override.
 ENV PHP_DATE_TIMEZONE 'Europe/Paris'
 ENV PHP_MAX_EXECUTION_TIME '3000'
 ENV PHP_MAX_INPUT_TIME '60'
 ENV PHP_MAX_INPUT_VARS '3000'
 ENV PHP_MEMORY_LIMIT '1024M'
 ENV PHP_ERROR_REPORTING 'E_ALL & ~E_DEPRECATED & ~E_STRICT'
-ENV PHP_DISPLAY_ERRORS 'Off'
+ENV PHP_DISPLAY_ERRORS 'On'
 ENV PHP_DISPLAY_STARTUP_ERRORS 'Off'
 ENV PHP_LOG_ERRORS 'On'
 ENV PHP_POST_MAX_SIZE '64M'
@@ -58,10 +58,17 @@ ENV PHP_OPCACHE_MEMORY_CONSUMPTION '64'
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+RUN composer self-update
 
-# Front stuff
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+# Nodejs
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
+
+# Yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+# Gulp (kept for old projects compatibility)
 RUN npm i -g gulp -y
 
 # Drupal Drush
