@@ -59,6 +59,7 @@ ENV PHP_OPCACHE_MEMORY_CONSUMPTION '64'
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+RUN composer self-update
 
 # Front dev stuff
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
