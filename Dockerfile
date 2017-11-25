@@ -54,6 +54,7 @@ ENV PHP_POST_MAX_SIZE '64M'
 ENV PHP_UPLOAD_MAX_FILESIZE '64M'
 ENV PHP_MAX_FILE_UPLOADS '20'
 ENV PHP_OPCACHE_ENABLE '0'
+ENV PHP_OPCACHE_MEMORY_CONSUMPTION '64'
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
