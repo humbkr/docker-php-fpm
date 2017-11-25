@@ -61,9 +61,11 @@ ENV PHP_OPCACHE_MEMORY_CONSUMPTION '64'
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN composer self-update
 
-# Front dev stuff
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+# Nodejs
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
+
+# Gulp
 RUN npm i -g gulp -y
 
 # Drupal Drush
