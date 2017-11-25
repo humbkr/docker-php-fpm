@@ -17,6 +17,7 @@ This image installs the following additional software:
 * PDO Mysql
 * Ssmtp
 * Vim
+* Yarn
 * ZIP
 
 ## Available PHP.ini settings and their default values.
